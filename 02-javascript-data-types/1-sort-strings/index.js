@@ -5,5 +5,26 @@
  * @returns {string[]}
  */
 export function sortStrings(arr, param = 'asc') {
+  const arrCopy = [...arr];
 
+  switch (param) {
+  case 'asc' :
+    return arrCopy.sort((a, b) => {
+      if (a !== b && a.toLowerCase() === b.toLowerCase()) {
+        return -a.localeCompare(b);
+      }
+      return a.localeCompare(b);
+    });
+
+  case 'desc' :
+    return arrCopy.sort((a, b) => {
+      if (a !== b && a.toLowerCase() === b.toLowerCase()) {
+        return a.localeCompare(b);
+      }
+      return -a.localeCompare(b);
+    });
+
+  default:
+    throw new Error('invalid param value');
+  }
 }
