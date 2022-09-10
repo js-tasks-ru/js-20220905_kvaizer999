@@ -8,7 +8,7 @@ export function sortStrings(arr, param = 'asc') {
   const arrCopy = [...arr];
 
   const sortFn = (arr) => {
-    return arr.sort((a, b) => a.localeCompare(b, 'kf', {caseFirst: 'upper'}));
+    return arr.sort((a, b) => a.localeCompare(b, ['ru', 'kf'], {caseFirst: 'upper'}));
   };
 
   switch (param) {
