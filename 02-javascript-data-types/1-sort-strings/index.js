@@ -7,21 +7,18 @@
 export function sortStrings(arr, param = 'asc') {
   const arrCopy = [...arr];
 
-  if (param === 'asc') {
-    return arrCopy.sort((a, b) => {
-      if (a !== b && a.toLowerCase() === b.toLowerCase()) {
-        return -a.localeCompare(b);
-      }
-      return a.localeCompare(b);
-    });
-  }
+  const sortFn = (arr) => {
+    return arr.sort((a, b) => a.localeCompare(b, 'kf', {caseFirst: 'upper'}));
+  };
 
-  if (param === 'desc') {
-    return arrCopy.sort((a, b) => {
-      if (a !== b && a.toLowerCase() === b.toLowerCase()) {
-        return a.localeCompare(b);
-      }
-      return -a.localeCompare(b);
-    });
+  switch (param) {
+  case 'asc' :
+    return sortFn(arrCopy);
+
+  case 'desc' :
+    return sortFn(arrCopy).reverse();
+
+  default:
+    return arrCopy;
   }
 }
