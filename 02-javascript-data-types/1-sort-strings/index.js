@@ -25,6 +25,6 @@ export function sortStrings(arr, param = 'asc') {
     });
 
   default:
-    throw new Error('invalid param value');
+    return arrCopy;
   }
 }
