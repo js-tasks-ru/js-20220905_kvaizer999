@@ -5,20 +5,16 @@
  * @returns {string[]}
  */
 export function sortStrings(arr, param = 'asc') {
-  const arrCopy = [...arr];
+  return [...arr].sort((a, b) => {
+    switch (param) {
+    case 'asc' :
+      return a.localeCompare(b, ['ru', 'kf'], {caseFirst: 'upper'});
 
-  const sortFn = (arr) => {
-    return arr.sort((a, b) => a.localeCompare(b, ['ru', 'kf'], {caseFirst: 'upper'}));
-  };
+    case 'desc' :
+      return b.localeCompare(a, ['ru', 'kf'], {caseFirst: 'upper'});
 
-  switch (param) {
-  case 'asc' :
-    return sortFn(arrCopy);
-
-  case 'desc' :
-    return sortFn(arrCopy).reverse();
-
-  default:
-    return arrCopy;
-  }
+    default:
+      throw new Error('Unacceptable param value');
+    }
+  });
 }
