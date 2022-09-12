@@ -5,5 +5,20 @@
  * @returns {string[]}
  */
 export function sortStrings(arr, param = 'asc') {
+  const sortFn = (x, y) => {
+    return x.localeCompare(y, ['ru', 'kf'], {caseFirst: 'upper'});
+  };
 
+  return [...arr].sort((a, b) => {
+    switch (param) {
+    case 'asc' :
+      return sortFn(a, b);
+
+    case 'desc' :
+      return sortFn(b, a);
+
+    default:
+      throw new Error('Unacceptable param value');
+    }
+  });
 }
