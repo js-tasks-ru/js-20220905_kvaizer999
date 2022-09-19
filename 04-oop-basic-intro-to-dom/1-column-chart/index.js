@@ -35,7 +35,7 @@ export default class ColumnChart {
                 ${this.label}
                 ${this.link && `<a class="column-chart__link" href=${this.link}>View all</a>`}
             </div>
-            ${(this.data.length || this.value) ? `<div class='column-chart__container'>
+            ${(this.data.length && this.value) ? `<div class='column-chart__container'>
                 <div class='column-chart__header'>${this.formatHeading ? this.formatHeading(this.value) : this.value}</div>
                 <div class='column-chart__chart'>${this.getDataList(data)}</div>
             </div>` : `<div class="column-chart_loading"><img src='./charts-skeleton.svg' alt="skeleton"/></div>`}
