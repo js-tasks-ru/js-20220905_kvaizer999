@@ -55,8 +55,6 @@ export default class ColumnChart {
       chartContainer.append(skeleton);
     }
 
-    console.log(element.classList);
-
     return element.firstElementChild;
   }
 
