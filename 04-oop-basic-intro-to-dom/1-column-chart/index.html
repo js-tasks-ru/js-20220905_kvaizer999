@@ -41,19 +41,17 @@
         value: 321
       });
 
-      const testChart = new ColumnChart()
-      const getNode = (id) => document.getElementById(id)
+      const testChart = new ColumnChart({value: 100})
 
-      const orders = getNode('orders')
-      const sales = getNode('sales')
-      const customers = getNode('customers')
-
-      document.body.append(testChart.element) //8ой тест на наличие скелетона
-      console.log(document.body.querySelectorAll('.column-chart_loading')) //8ой тест на наличие скелетона
+      const orders = document.getElementById('orders')
+      const sales = document.getElementById('sales')
+      const customers = document.getElementById('customers')
+      const test = document.getElementById('test')
 
       orders.append(ordersChart.element);
       sales.append(salesChart.element);
       customers.append(customersChart.element);
+      test.append(testChart.element);
     </script>
   </body>
 </html>

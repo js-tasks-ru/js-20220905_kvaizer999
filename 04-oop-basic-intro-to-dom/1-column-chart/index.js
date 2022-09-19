@@ -1,4 +1,3 @@
-
 export default class ColumnChart {
   constructor(props = {}) {
     this.data = props.data || [];
@@ -35,12 +34,28 @@ export default class ColumnChart {
                 ${this.label}
                 ${this.link && `<a class="column-chart__link" href=${this.link}>View all</a>`}
             </div>
-            ${(this.data.length && this.value) ? `<div class='column-chart__container'>
+            <div class='column-chart__container'>
                 <div class='column-chart__header'>${this.formatHeading ? this.formatHeading(this.value) : this.value}</div>
                 <div class='column-chart__chart'>${this.getDataList(data)}</div>
-            </div>` : `<div class="column-chart_loading"><img src='./charts-skeleton.svg' alt="skeleton"/></div>`}
+            </div>
         </div>
     `;
+
+    if (!(this.data.length && this.value)) {
+      const chartContainer = element.querySelector('.column-chart__container');
+      const columnChart = element.querySelector('.column-chart');
+
+      columnChart.classList.remove('.column-chart');
+      columnChart.classList.add('column-chart_loading');
+
+      const skeleton = document.createElement('img');
+      skeleton.src = './charts-skeleton.svg';
+      skeleton.alt = 'skeleton';
+
+      chartContainer.append(skeleton);
+    }
+
+    console.log(element.classList);
 
     return element.firstElementChild;
   }
