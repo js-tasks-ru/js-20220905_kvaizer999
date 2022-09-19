@@ -13,13 +13,16 @@ export default class ColumnChart {
   getColumnProps(num) {
     const maxValue = Math.max(...this.data);
     const scale = this.chartHeight / maxValue;
-    return String(Math.floor(num * scale));
+    const percent = (num / maxValue * 100).toFixed(0) + '%';
+    const value = String(Math.floor(num * scale));
+    return [value, percent];
   }
 
   getDataList(data = this.data) {
     return data.map(item => {
-      const style = `--value:${this.getColumnProps(item)}`;
-      return `<div style=${style}></div>`;
+      const style = `--value:${this.getColumnProps(item)[0]}`;
+      const percent = this.getColumnProps(item)[1];
+      return `<div style=${style} data-tooltip=${percent}></div>`;
     }).join('');
   }
 
