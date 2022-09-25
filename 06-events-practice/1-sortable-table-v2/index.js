@@ -115,7 +115,6 @@ export default class SortableTable {
   getSubElements(element) {
     const result = {};
     const elements = element.querySelectorAll('[data-element]');
-
     for (const subElement of elements) {
       const name = subElement.dataset.element;
       result[name] = subElement;
@@ -125,6 +124,7 @@ export default class SortableTable {
   }
 
   onHeaderClickHandler = (event) => {
+    console.log('123');
     let elem = event.target.parentNode;
 
     while (!elem.dataset.sortable) {
@@ -140,23 +140,23 @@ export default class SortableTable {
   }
 
   addEventListeners() {
-    const header = this.element.querySelector('.sortable-table__header');
-    header.addEventListener('onclick', this.onHeaderClickHandler);
+    const header = this.element.querySelector('.sortable-table__header[data-element]');
+    header.addEventListener('click', this.onHeaderClickHandler);
   }
 
   removeEventListeners() {
-    const header = this.element.querySelector('.sortable-table__header');
-    header.removeEventListener('onclick', this.onHeaderClickHandler);
+    const header = this.element.querySelector('.sortable-table__header[data-element]');
+    header.removeEventListener('click', this.onHeaderClickHandler);
   }
 
   remove() {
     if (this.element) {
       this.element.remove();
+      this.removeEventListeners();
     }
   }
 
   destroy() {
     this.remove();
-    this.removeEventListeners();
   }
 }
