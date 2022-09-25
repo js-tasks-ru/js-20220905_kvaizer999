@@ -60,12 +60,14 @@ class Tooltip {
 
   addEventListeners() {
     const container = document.querySelector('[data-tooltip]');
+
     container.addEventListener('mouseover', this.onMouseOverHandler);
     container.addEventListener('mouseleave', this.onMouseLeaveHandler);
   }
 
   removeEventListeners() {
     const container = document.querySelector('[data-tooltip]');
+
     container.removeEventListener('mouseover', this.onMouseOverHandler);
     container.removeEventListener('mouseleave', this.onMouseLeaveHandler);
   }
