@@ -4,20 +4,16 @@ class Tooltip {
   }
 
   initialize() {
-    this.render();
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = this.template();
+    this.element = wrapper.firstElementChild;
+    document.body.append(this.element);
   }
 
   template() {
     return `
        <div class="tooltip" hidden></div>
     `;
-  }
-
-  render() {
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = this.template();
-    this.element = wrapper.firstElementChild;
-    document.body.append(this.element);
   }
 
   onMouseOverHandler = (event) => {
