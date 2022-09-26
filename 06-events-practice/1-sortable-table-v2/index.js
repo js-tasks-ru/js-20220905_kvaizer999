@@ -124,12 +124,7 @@ export default class SortableTable {
   }
 
   onHeaderClickHandler = (event) => {
-    console.log('123');
-    let elem = event.target.parentNode;
-
-    while (!elem.dataset.sortable) {
-      elem = elem.parentNode;
-    }
+    const elem = event.target.closest("div");
 
     if (elem.dataset.sortable === 'false') {
       return;
