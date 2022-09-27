@@ -124,8 +124,8 @@ export default class SortableTable {
   }
 
   onHeaderClickHandler = (event) => {
-    const elem = event.target.closest("div");
-
+    const elem = event.target.closest('[data-sortable="true"]');
+    
     if (elem.dataset.sortable === 'false') {
       return;
     }
@@ -139,15 +139,10 @@ export default class SortableTable {
     header.addEventListener('click', this.onHeaderClickHandler);
   }
 
-  removeEventListeners() {
-    const header = this.element.querySelector('.sortable-table__header[data-element]');
-    header.removeEventListener('click', this.onHeaderClickHandler);
-  }
 
   remove() {
     if (this.element) {
       this.element.remove();
-      this.removeEventListeners();
     }
   }
 

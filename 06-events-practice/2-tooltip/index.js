@@ -1,69 +1,70 @@
 class Tooltip {
+  static instance;
+  element;
+
   constructor() {
-    this.addEventListeners();
+    if (Tooltip.instance) {
+      return Tooltip.instance;
+    }
+
+    Tooltip.instance = this;
   }
 
   initialize() {
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = this.template();
-    this.element = wrapper.firstElementChild;
+    this.addEventListeners();
+  }
+
+  render(elem) {
+    this.element = document.createElement('div');
+    this.element.className = 'tooltip';
+    this.element.innerHTML = elem;
     document.body.append(this.element);
   }
 
-  template() {
-    return `
-       <div class="tooltip" hidden></div>
-    `;
-  }
-
   onMouseOverHandler = (event) => {
-    if (event.target.tagName === 'DIV') {
-      this.element.hidden = false;
-      this.element.innerHTML = event.target.dataset.tooltip;
-    } else {
-      this.element.hidden = true;
+    const closest = event.target.closest('[data-tooltip]');
+
+    if (closest) {
+      this.render(closest.dataset.tooltip);
+      document.addEventListener('pointermove', this.onMouseMoveHandler);
     }
+
   };
 
   onMouseMoveHandler = (event) => {
-    if (event.target.tagName === 'DIV') {
+    if (event.target.dataset.tooltip) {
       this.element.style.left = (event.clientX + 10) + 'px';
       this.element.style.top = (event.clientY + 10) + 'px';
     }
   };
 
-  onMouseLeaveHandler = () => {
-    this.element.hidden = true;
-    this.element.innerHTML = '';
+  onMouseLeaveHandler = (event) => {
+    if (event.target.dataset.tooltip) {
+      this.remove();
+      document.removeEventListener('pointermove', this.onMouseMoveHandler);
+    }
   };
 
   addEventListeners() {
-    const containers = document.querySelectorAll('[data-tooltip]');
-    console.log(containers);
-    [...containers].forEach(item => {
-      item.addEventListener('mouseover', this.onMouseOverHandler);
-      item.addEventListener('mousemove', this.onMouseMoveHandler);
-      item.addEventListener('mouseleave', this.onMouseLeaveHandler);
-    });
+    document.addEventListener('pointerover', this.onMouseOverHandler);
+    document.addEventListener('pointerout', this.onMouseLeaveHandler);
   }
 
   removeEventListeners() {
-    const containers = document.querySelectorAll('[data-tooltip]');
-    console.log(containers);
-    [...containers].forEach(item => {
-      item.removeEventListener('mouseover', this.onMouseOverHandler);
-      item.removeEventListener('mousemove', this.onMouseMoveHandler);
-      item.removeEventListener('mouseleave', this.onMouseLeaveHandler);
-    });
+    document.removeEventListener('pointerover', this.onMouseOverHandler);
+    document.removeEventListener('pointerout', this.onMouseLeaveHandler);
+    document.removeEventListener('pointermove', this.onMouseMoveHandler);
   }
 
   remove() {
-    this.element.remove();
-    this.removeEventListeners();
+    if (this.element) {
+      this.element.remove();
+    }
   }
 
   destroy() {
     this.remove();
+    this.removeEventListeners();
     this.element = null;
   }
 }
