@@ -54,7 +54,6 @@ export default class ColumnChart {
 
       chartContainer.append(skeleton);
     }
-
     return element.firstElementChild;
   }
 
