@@ -73,7 +73,9 @@ export default class SortableTable {
 
   sort(field, order) {
     if (this.isSortedLocally) {
-      return this.sortOnClient(field, order);
+      this.data = this.sortOnClient(field, order);
+      this.addDataToTable(this.data);
+      return;
     }
     return this.sortOnServer(field, order);
   }
