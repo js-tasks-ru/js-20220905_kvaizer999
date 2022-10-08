@@ -135,6 +135,7 @@ export default class SortableList {
 
   remove() {
     this.element.remove();
+
     document.removeEventListener('pointermove', this.onPointerMove);
     document.removeEventListener('pointerup', this.onPointerUp);
   }

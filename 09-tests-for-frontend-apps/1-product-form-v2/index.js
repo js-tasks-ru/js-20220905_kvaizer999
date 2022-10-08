@@ -336,7 +336,6 @@ export default class ProductForm {
 
     productForm.addEventListener('submit', this.onSubmit);
     uploadImage.addEventListener('click', this.uploadImage);
-    console.log();
   }
 
   dispatchEvent(id) {
