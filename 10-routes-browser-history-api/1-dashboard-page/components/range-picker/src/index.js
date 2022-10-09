@@ -1,5 +1,5 @@
 export default class RangePicker {
-  element = null;
+  element;
   subElements = {};
   selectingFrom = true;
   selected = {
