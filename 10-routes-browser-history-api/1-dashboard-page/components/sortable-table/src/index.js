@@ -7,6 +7,7 @@ export default class SortableTable {
   subElements = {};
   data = [];
   loading = false;
+  isSortLocally = false;
   step = 20;
   start = 1;
   end = this.start + this.step;
@@ -15,7 +16,7 @@ export default class SortableTable {
     const { bottom } = this.element.getBoundingClientRect();
     const { id, order } = this.sorted;
 
-    if (bottom < document.documentElement.clientHeight && !this.loading && !this.sortLocally) {
+    if (bottom < document.documentElement.clientHeight && !this.loading && !this.isSortLocally) {
       this.start = this.end;
       this.end = this.start + this.step;
 
