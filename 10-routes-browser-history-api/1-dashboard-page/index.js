@@ -43,7 +43,7 @@ export default class Page {
     this.renderComponents();
     this.addEventListeners();
 
-    document.querySelector('.progress-bar').remove();
+    document.querySelector('.progress-bar').hidden = true;
 
     return this.element;
   }
