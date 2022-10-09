@@ -13,10 +13,6 @@ export default class Page {
   subElements = {};
   components = {};
 
-  // constructor() {
-  //   this.fetchDataForColumnCharts(new Date(2020, 0, 1, 2, 3, 4, 567), new Date());
-  // }
-
   getTemplate() {
     return `
     <div class="dashboard">
@@ -43,8 +39,12 @@ export default class Page {
     this.element = wrapper.firstElementChild;
     this.subElements = this.getSubElements(this.element);
     await this.createInstancesOfComponents();
+
     this.renderComponents();
     this.addEventListeners();
+
+    document.querySelector('.progress-bar').remove();
+
     return this.element;
   }
 
@@ -74,7 +74,7 @@ export default class Page {
     this.components.rangePicker = new RangePicker({from, to});
 
     this.components.sortableTable = new SortableTable(header, {
-      url: `api/dashboard/bestsellers?_start=1&_end=20&from=${from.toISOString()}&to=${to.toISOString()}`,
+      url: `${Page.BACKEND_URL}api/dashboard/bestsellers?from=${from.toISOString()}&to=${to.toISOString()}`,
       isSortLocally: true,
     });
   }
@@ -104,8 +104,8 @@ export default class Page {
   };
 
   async updateTable(from, to) {
-    const data = await fetchJson(`${Page.BACKEND_URL}api/dashboard/bestsellers?_start=1&_end=20&from=${from.toISOString()}&to=${to.toISOString()}`);
-    this.components.sortableTable.update(data);
+    const data = await fetchJson(`${Page.BACKEND_URL}api/dashboard/bestsellers?from=${from.toISOString()}&to=${to.toISOString()}`);
+    this.components.sortableTable.addRows(data);
   }
 
   async updateColumnCharts(from, to) {
